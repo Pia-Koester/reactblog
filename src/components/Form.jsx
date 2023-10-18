@@ -9,25 +9,47 @@ import BlogCard from "./BlogCard"
 // use useState to store the information
 
 export default function Form() {
-   const [blogs, setBlogs] = useState([{id: 1, title : "Test", description: "Test TEst", image: "img"},{id: 1, title : "Test", description: "Test TEst", image: "img"},{id: 1, title : "Test", description: "Test TEst", image: "img"}]);
+    const [title, setTitle] = useState("");
+    const [img, setImg] = useState("");
+    const [description, setDescription] = useState("");
+   const [blogs, setBlogs] = useState([{id: 1, title : "Test", description: "Test TEst", image: "img", comments : []}]);
+console.log(blogs)
+const submitting = () => {
+    console.log("ich mache was")
+    setBlogs(
+        (prevblogs)=> {
+            return [...prevblogs, {title, description, image: img, comments:[]}] // ich bruache nur title und description, weil der name und der wert gleich heißen, bei image ist das anders
+        }
+    )
 
+    setTitle("");
+    setImg("");
+    setDescription("");}
     return (
         <div>
-         <form>  
+         <form >  
             <div className="inputform">    
-            <TextField id="outlined" label="Title" variant="outlined" type="text" placeholder = "Your Title"/>
-         <TextField id="outlined-basic" label="Description" variant="outlined" type="text" placeholder = "Your Description"/>
-         <TextField id="outlined-basic" label="Image" variant="outlined" type="text" placeholder = "Your Image"/>
+            <TextField id="outlined" label="Title" variant="outlined" type="text" placeholder = "Your Title" value={title} onChange={(e) => {
+          setTitle(e.target.value);
+        }} />
+         <TextField id="outlined-basic" label="Description" variant="outlined" type="text" placeholder = "Your Description" value={description} onChange={(e) => {
+          setDescription(e.target.value);
+        }}/>
+         <TextField id="outlined-basic" label="Image" variant="outlined" type="text" placeholder = "Your Image" value={img} onChange={(e) => {
+          setImg(e.target.value);
+        }}/>
          </div>  
-            <Button variant="outlined" onClick={(e) =>{ console.log("Testnachricht")}}>Submit</Button>
+            <Button variant="outlined" onClick={submitting} >Submit</Button> 
         
             </form>
             <div className="blog__container">
-                {/*mapping over the blogs array and for each item create one blogCard with the corresponding values formt eh object*/}
-            <BlogCard title={blogs.title}/>
-            <BlogCard/>
-            <BlogCard/>
-            <BlogCard/>
+
+               { blogs.map(  
+                (blog) =>  <BlogCard title={blog.title} img={blog.img} description={blog.description}/>
+               )}
+            
+          
+            
             </div>
          
             

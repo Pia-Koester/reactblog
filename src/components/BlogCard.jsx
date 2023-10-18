@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useState } from 'react';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -21,12 +22,14 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function BlogCard({title}) {
+export default function BlogCard({title, img, description}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const [counter, setCounter] = useState(0);
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -34,18 +37,23 @@ export default function BlogCard({title}) {
       <CardMedia
         component="img"
         height="194"
-        image="" // image url which should come from props
-        alt="Paella dish"
+        image={img} // image url which should come from props
+        alt="alt text which should change depending on the image  "
       />
       <CardContent>
-  
+      <Typography variant="h5" color="text.secondary">
+        {title}
+      </Typography>
         <Typography variant="body2" color="text.secondary">
-        Text as a trial see what happens
+        {description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon /> {/*create a counter next to it */}
+        <IconButton aria-label="add to favorites"  onClick={() => {
+          setCounter(counter + 1);
+        }}>
+          <FavoriteIcon/> {/*create a counter next to it */}
+          <Typography paragraph>{counter}</Typography>
         </IconButton>
         <ExpandMore
           expand={expanded}
@@ -60,7 +68,7 @@ export default function BlogCard({title}) {
         <CardContent>
           <Typography paragraph>Comments:</Typography>
           <Typography paragraph>
-           comments  {/*add the comments here*/}
+           comments  {/*add the comments here, also create input area for new comments*/}
           </Typography>
          
   
