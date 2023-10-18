@@ -18,6 +18,24 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.blog__container{
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.inputform {
+padding: 1rem;
+display: flex;
+justify-content: center;
+gap: 1rem;
+}
+
+form {
+  margin: 2rem;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
